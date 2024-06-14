@@ -7,7 +7,9 @@ import (
 	"github.com/docker/docker/api/types/image"
 )
 func List() (string, error) {
-	summary, err := global.Client.ImageList(global.Ctx, image.ListOptions{All: true})
+	summary, err := global.Client.ImageList(global.Ctx, image.ListOptions{
+		All: true,
+	})
 	
 	if err != nil {
 		return "", err

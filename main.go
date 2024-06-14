@@ -8,11 +8,16 @@ import (
 
 func main()  {
 	defer global.Client.Close()
-	list, err := cmd.List()
-	if err != nil{
+	// list, err := cmd.List()
+	// if err != nil{
+	// 	panic(err)
+	// }
+	// fmt.Println(list)
+	result, err := cmd.Search("golang")
+	if err != nil {
 		panic(err)
 	}
-	fmt.Println(list)
+	fmt.Println(result)
 }
 
 func init()  {
