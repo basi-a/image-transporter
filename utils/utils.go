@@ -1,16 +1,23 @@
 package utils
 
 import (
-	"errors"
 	"os"
 	"regexp"
 )
 func DirExist(dir string) bool {
-	_, err := os.Stat(dir)
-	return errors.Is(err, os.ErrNotExist) 
+	if _, err := os.Stat(dir); err != nil {
+		return false
+	}
+	return true 
 }
 func MkdirAll(dir string) error {
-	return os.MkdirAll(dir, os.ModeDir)
+	return os.MkdirAll(dir, 0755)
+}
+func FileStat(filename string) bool {
+	if _, err := os.Stat(filename); err != nil {
+		return false
+	}
+	return true 
 }
 func ReplaceUnsafeCharacters(str string) string {
 	re := regexp.MustCompile(`[\\/]+`)

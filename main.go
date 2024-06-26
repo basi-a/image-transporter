@@ -1,10 +1,8 @@
 package main
 
 import (
-
-	"image-transporter/cmd"
+	"fmt"
 	"image-transporter/global"
-	"log"
 )
 
 func main()  {
@@ -27,9 +25,10 @@ func main()  {
 	// }
 	// fmt.Println(refStr, pullTime)
 	
-	if err := cmd.Save([]string{"golang:latest", "nginx:latest", "nsqio/nsq:latest"}, "/home/yang/image-transporter"); err != nil {
-		log.Println(err)
-	}
+	// if err := cmd.Save([]string{"golang:latest", "nginx:latest", "nsqio/nsq:latest"}, "/home/yang/image-transporter"); err != nil {
+	// 	log.Println(err)
+	// }
+	fmt.Println(global.BaseConfig)
 }
 
 func init()  {

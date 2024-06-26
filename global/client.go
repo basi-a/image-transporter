@@ -2,6 +2,7 @@ package global
 
 import (
 	"context"
+	"image-transporter/utils"
 
 	"github.com/docker/docker/client"
 )
@@ -11,7 +12,7 @@ var Ctx context.Context
 func InitDockerClient()  {
 	client, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
-		panic(err)
+		utils.FatalfErr("init docker client fail.", err)
 	}
 	Client = client
 	Ctx = context.Background()
