@@ -16,10 +16,10 @@ export DOCKER_API_VERSION=${API_VERSION}
 - 一般配置记录于`$HOME/.config/image-transporter/config.json`
 - 敏感配置记录于`sqlite`, 默认为`$HOME/.config/image-transporter/config.db`, 当然数据库文件存放位置可以到一般配置中修改
 ### TODO
-[x] 镜像拉取、查询、保存等基础实现
+- [x] 镜像拉取、查询、保存等基础实现
 
-[] 基础API
+- [ ] 基础API
 
-[] 云服务对接API
+- [ ] 云服务对接API
 
-[] 前端界面
+- [ ] 前端界面
