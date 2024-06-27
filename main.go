@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"image-transporter/global"
+	"image-transporter/initialize"
 )
 
 func main()  {
@@ -28,9 +29,10 @@ func main()  {
 	// if err := cmd.Save([]string{"golang:latest", "nginx:latest", "nsqio/nsq:latest"}, "/home/yang/image-transporter"); err != nil {
 	// 	log.Println(err)
 	// }
-	fmt.Println(global.BaseConfig)
+
+	// fmt.Println(global.Config)
 }
 
 func init()  {
-	global.Init()
+	initialize.Init()
 }

@@ -9,6 +9,9 @@ API_VERSION=$(docker version | grep "API version" | head -1 | awk '{print $3}')
 export DOCKER_API_VERSION=${API_VERSION}
 ```
 之后是直接运行还是编译运行自行选择.
+
+注册用户只能从宿主节点请求API注册!!!
+登陆才能选择直接下载以外的存储目标!!!
 ### 配置存放
 - 一般配置记录于`$HOME/.config/image-transporter/config.json`
 - 敏感配置记录于`sqlite`, 默认为`$HOME/.config/image-transporter/config.db`, 当然数据库文件存放位置可以到一般配置中修改

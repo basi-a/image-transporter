@@ -13,7 +13,10 @@ type BaseConfigStruct struct {
 	LogDir string `json:"logdir" mapstructure:"logdir"`
 }
 
-var BaseConfig BaseConfigStruct
+type ConfigStruct struct {
+	BaseConfig BaseConfigStruct	`json:"baseConfig" mapstructure:"baseConfig"`
+}
+var Config ConfigStruct
 
 func InitBaseConfig() {
 	configFile, configDir, isNewFile := configFileStat()
@@ -50,13 +53,10 @@ func configFileStat() (configFile, configDir string, isNewFile bool) {
 func setDefaultValue(configFile, configDir string) {
 	viper.SetConfigFile(configFile)
 	viper.SetConfigType("json")
-	viper.SetDefault("port", 9988)
-	viper.SetDefault("dbdir", configDir)
+	viper.SetDefault("baseConfig.port", 9988)
+	viper.SetDefault("baseConfig.dbdir", configDir)
 	logdir := configDir + "/log"
-	if !utils.DirExist(logdir) {
-		utils.MkdirAll(logdir)
-	}
-	viper.SetDefault("logdir", logdir)
+	viper.SetDefault("baseConfig.logdir", logdir)
 	if err := viper.WriteConfigAs(configFile); err != nil {
 		utils.PrintfErr("write and save config file faild.", err)
 	}
@@ -68,7 +68,7 @@ func readConfigAndUnmarshal(configFile string)  {
 	if err := viper.ReadInConfig(); err != nil {
 		utils.FatalfErr("read config file faild.", err)
 	}
-	if err := viper.Unmarshal(&BaseConfig); err != nil {
+	if err := viper.Unmarshal(&Config); err != nil {
 		utils.FatalfErr("unmarshal config to struct faild.", err)
 	}
 }
