@@ -18,7 +18,7 @@ type Users struct {
 }
 
 func (user *Users) AddUser() error {
-	
+
 	if hashedPassword, err := utils.HashPassword(user.Password); err != nil {
 		return err
 	} else {
@@ -30,16 +30,23 @@ func (user *Users) AddUser() error {
 // Delete users who have been soft deleted for more than 6 months
 func RemoveDelatedUsers() error {
 	tx := global.DB.Begin()
-	if err := tx.Delete(&Users{}).Where("delete_at < ", time.Now().AddDate(0, -deletedUserRetentionMonths, 0)).Unscoped().Error; err != nil {
+	if err := tx.Delete(&Users{}).Where("delete_at < ?", time.Now().AddDate(0, -deletedUserRetentionMonths, 0)).Unscoped().Error; err != nil {
 		tx.Rollback()
 		return err
 	}
 	return tx.Commit().Error
 }
 
-func UsersList(limit int) (users []Users,err error) {
-	if err := global.DB.Find(&users).Limit(limit).Error; err != nil {
-		return nil, err
+func UsersList(limit int, permission string) (users []Users, err error) {
+	if permission != "" {
+		if err := global.DB.Find(&users).Where("permission = ?", permission).Limit(limit).Error; err != nil {
+			return nil, err
+		}
+	} else {
+		if err := global.DB.Find(&users).Limit(limit).Error; err != nil {
+			return nil, err
+		}
 	}
+
 	return
 }

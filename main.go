@@ -34,7 +34,7 @@ func main()  {
 
 	// fmt.Println(global.Config)
 	
-	result, err := model.UsersList(500)
+	result, err := model.UsersList(500, "admin")
 	if err != nil {
 		panic(err)
 	}

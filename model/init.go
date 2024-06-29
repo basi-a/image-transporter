@@ -18,7 +18,7 @@ func autoMigrate()  {
 }
 
 func addBaseDataForUsers()  {
-	randomPassword := utils.RandomStr(20)
+	randomPassword := utils.RandomStr(20) //pvCjyfhrfq8+mYxGD+(p    This is a random password generated during testing
 	user := Users{
 		UserName: "admin",
 		Password: randomPassword,
