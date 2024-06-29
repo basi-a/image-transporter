@@ -1,9 +1,11 @@
 package main
 
 import (
-	// "fmt"
+	"encoding/json"
+	"fmt"
 	"image-transporter/global"
 	"image-transporter/initialize"
+	"image-transporter/model"
 )
 
 func main()  {
@@ -31,6 +33,13 @@ func main()  {
 	// }
 
 	// fmt.Println(global.Config)
+	
+	result, err := model.UsersList(500)
+	if err != nil {
+		panic(err)
+	}
+	jsondata, _ := json.Marshal(result)
+	fmt.Println(string(jsondata))
 }
 
 func init()  {

@@ -3,6 +3,7 @@ package global
 import (
 	"fmt"
 	"image-transporter/utils"
+	"time"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -10,7 +11,8 @@ import (
 )
 
 var DB *gorm.DB
-func InitSqlite()  {
+
+func InitSqlite() {
 	dsn := fmt.Sprintf("%s/app.db", Config.BaseConfig.DbDir)
 	var err error
 	DB, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{
@@ -21,7 +23,9 @@ func InitSqlite()  {
 	if err != nil {
 		utils.FatalfErr("open sqlite file faild.", err)
 	}
-	db, _ := DB.DB()
-	db.SetMaxOpenConns(1024)
-	db.SetConnMaxIdleTime(50)
+
+	sqlDB, _ := DB.DB()
+	sqlDB.SetMaxIdleConns(10)
+	sqlDB.SetMaxOpenConns(100)
+	sqlDB.SetConnMaxLifetime(time.Hour)
 }
